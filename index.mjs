@@ -1,13 +1,13 @@
 import { input } from './input.mjs'
 
 let sum;
-const sumList = new Set([]);
-const dupList = new Set([]); 
+const sumList = [];
+const dupList = []; 
 
 const process = start => {
     return input.split('\n').reduce((prev, cur) => {
         sum = parseInt(cur, 10) + prev;
-        sumList.has(sum) ? dupList.add(sum) : sumList.add(sum);
+        sumList.includes(sum) ? dupList.push(sum) : sumList.push(sum);
         return parseInt(cur, 10) + prev;
     }, start); 
 };
