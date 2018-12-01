@@ -14,4 +14,3 @@ let total = process(0);
 while (!dupList.length) total = process(total);
 
 console.log(dupList[0]);
-console.log('end');
