@@ -1,10 +1,9 @@
 import { input } from './input.mjs'
 
-let sum;
 const sumList = [];
 const dupList = []; 
 
-const process = start => {
+const process = (start, sum) => {
     return input.split('\n').reduce((prev, cur) => {
         sum = parseInt(cur, 10) + prev;
         sumList.includes(sum) ? dupList.push(sum) : sumList.push(sum);
