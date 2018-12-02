@@ -1,15 +1,49 @@
 import { input } from './input.mjs'
 
-let tw = 0, th = 0;
+const test = `abcde
+fghij
+klmno
+pqrst
+fguij
+axcye
+wvxyz`;
 
-input.split('\n').map(id =>
-    Object.entries(id
-        .split('')
-        .reduce((p, c) => { p[c] = p[c] ? ++p[c] : 1; return p; }, {}))
-        .filter(p => p[1] == 2 || p[1] == 3)
-        .map(p => p[1])
-        .sort()
-        .filter((el, pos, ary) => !pos || el != ary[pos - 1])
-        .forEach(el => el == 2 ? ++tw : el == 3 ? ++th : void 0));
+const compare = (a, b) => {
+    let diffs = 0;
+    for (let ix = 0; ix < a.length; ix++) {
+        if (a[ix] !== b[ix])++diffs;
+        if (diffs > 1) break;
+    }
+    return diffs === 1;
+};
 
-console.log(tw * th);
+const same = (a, b) => {
+    let sames = [];
+    for (let ix = 0; ix < a.length; ix++) {
+        if (a[ix] == b[ix]) sames.push(a[ix]);
+    }
+    return sames.join('');
+};
+
+const process = a => {
+    let l = a.split('\n');
+    let r = null;
+    while (l.length) {
+        const t = l.pop();
+
+        const m = l.reduce((a, c) => {
+            const r = compare(t, c);
+            if (r) a = c;
+            return a;
+        }, '');
+
+        if (m.length > 0) r = [t, m];
+    }
+    return r;
+};
+
+const p = process(input);
+const r = same(p[0], p[1]);
+
+console.log(r);
+console.log('end');
