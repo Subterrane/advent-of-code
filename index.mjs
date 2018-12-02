@@ -1,16 +1,15 @@
 import { input } from './input.mjs'
 
-const sumList = [], dupList = [];
+let tw = 0, th = 0;
 
-const process = (start, sum) => {
-    return input.split('\n').reduce((prev, cur) => {
-        sum = parseInt(cur, 10) + prev;
-        sumList.includes(sum) ? dupList.push(sum) : sumList.push(sum);
-        return sum;
-    }, start);
-};
+input.split('\n').map(id =>
+    Object.entries(id
+        .split('')
+        .reduce((p, c) => { p[c] = p[c] ? ++p[c] : 1; return p; }, {}))
+        .filter(p => p[1] == 2 || p[1] == 3)
+        .map(p => p[1])
+        .sort()
+        .filter((el, pos, ary) => !pos || el != ary[pos - 1])
+        .forEach(el => el == 2 ? ++tw : el == 3 ? ++th : void 0));
 
-let total = process(0);
-while (!dupList.length) total = process(total);
-
-console.log(dupList[0]);
+console.log(tw * th);
