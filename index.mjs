@@ -69,10 +69,17 @@ const calcOverlaps = (acc, cur) => {
     return acc;
 }
 
+const noOverlap = claim => {
+    return claim.overlaps.length == 0;
+}
+
 const process = input => {
     let claims = input.split('\n');
     claims = claims.map(claim => new Claim(claim));
     claims = claims.map(doesOverlap);
+
+    console.log(claims.filter(noOverlap));
+
     claims.map(claim => claim.calcSquares());
     const overlappedSquares = claims.reduce(calcOverlaps, []);
     return new Set(overlappedSquares);
